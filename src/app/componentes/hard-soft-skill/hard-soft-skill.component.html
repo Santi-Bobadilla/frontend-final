@@ -1,0 +1,44 @@
+<div class="container-fluid">
+    <div class="card mb-3 pb-2">
+        <div class="card-body">
+          <!-- hard skill -->
+          <div class="row">
+              <div class="col-10">
+                  <h5 class="card-title text-start">Hard Skills</h5>
+              </div>
+              <div class="col-2 text-end">
+                  <button type="button" class="btn btn-sm btn-light">
+                  <i class="fa-regular fa-pen-to-square"></i>
+                  </button>
+              </div>
+          </div>
+          <ng-container *ngFor="let skill of skills">
+            <div *ngIf="skill.tipo_skill.id === 1" class="progress my-2" role="progressbar" aria-label="Default striped example" aria-valuenow="{skill.porcentaje}" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar progress-bar-striped" [ngStyle]="{'width':skill.porcentaje}">{{skill.nombre}}</div>
+            </div>   
+          </ng-container>
+          
+            
+  
+            <!-- soft skill -->
+            <div class="row">
+              <div class="col-10">
+                  <h5 class="card-title text-start">Soft Skills</h5>
+              </div>
+              <div class="col-2 text-end">
+                <button type="button" class="btn btn-sm btn-light">
+                  <i class="fa-regular fa-pen-to-square"></i>
+                </button>
+              </div>
+            </div>
+            
+            <ng-container *ngFor="let skill of skills">
+              <div *ngIf="skill.tipo_skill.id === 2" class="progress my-2" role="progressbar" aria-label="Default striped example" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar progress-bar-striped" [ngStyle]="{'width':skill.porcentaje}">{{skill.nombre}}</div>
+              </div>
+            </ng-container>  
+        </div>
+    </div>
+ </div>
+
+

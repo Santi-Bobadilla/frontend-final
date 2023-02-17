@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="card mb-3 pb-2">      
+      <div class="card-body">
+        <div class="row">
+            <div class="col-10">
+                <h5 class="card-title text-start">Experiencia</h5>
+            </div>
+            <div class="col-2 text-end">
+                <button type="button" class="btn btn-sm btn-light">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+      </div>
+      <!-- Experiencias -->
+      <div class="container-fluid" *ngFor="let exp of experiencia">
+        <div class="row">
+            <div class="col">
+                <div class="card mb-3">
+                    <div class="row">
+                      <div class="col-9">
+                        <div class="card-body">
+                          <h5 class="card-title">{{exp.nombre}}</h5>
+                        </div>
+                      </div>
+                      <div class="col-3 text-end">
+                        <button type="button" class="btn btn-sm btn-light">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-light">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="container-fluid mb-2">
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                              <b>Fecha de Inicio:</b> {{exp.fecha_inicio}}
+                          </li>
+                          <li class="list-group-item">
+                            <b>Fecha de Fin:</b> {{exp.fecha_fin}}
+                          </li>
+                          <li class="list-group-item">
+                              <b>Tareas realizadas:</b> {{exp.descripcion}}
+                          </li>
+                          <li class="list-group-item">
+                            <b>Tipo de empleo:</b> {{exp.tipo_empleo.nombre}}
+                          </li>
+                          <li class="list-group-item" *ngIf="exp.es_trabajo_actual===0">
+                            <b>Trabajo Actual:</b> No
+                          </li>
+                          <li class="list-group-item" *ngIf="exp.es_trabajo_actual!=0">
+                            <b>Trabajo Actual:</b> Si
+                          </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <!-- Fin Experiencias -->
+    </div>
+
+    
+ </div>

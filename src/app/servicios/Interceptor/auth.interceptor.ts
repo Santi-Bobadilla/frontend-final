@@ -3,30 +3,42 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor,
-  HttpEventType,
-  HttpHeaders
-} from '@angular/common/http';
-import { Observable } from 'rxjs';
+  HttpInterceptor} from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 import { AuthService } from '../Auth/auth.service';
+import { LoaderService } from '../Loader/loader.service';
+import { PortfolioService } from '../Portfolio/portfolio.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(protected  authService:AuthService) {}
+  constructor(protected authService: AuthService, private loaderService: LoaderService, private portfolioService: PortfolioService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    var currentUser = this.authService.UsuarioAutenticado;
-    if(currentUser) {
-      request= request.clone({
+    this.loaderService.show();
+    var currentUser = this.authService.usuarioAutenticado;
+    if (currentUser && currentUser.token) {
+      request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${currentUser}`
-        }
-        // withCredentials:false
+          'Authorization': `Bearer ${currentUser.token}`,
+        },
       })
     }
-    console.log('interceptor esta corriendo: '+JSON.stringify(currentUser));
-    return next.handle(request);
+    return next.handle(request).pipe(
+      tap({
+        next: (next) => {
+          return next
+        },
+        error: (error) => {
+          console.log(error);
+          return error;
+        },
+        finalize: () => {
+          this.loaderService.hide()
+          return this.portfolioService.responseStatus;
+        },
+      })
+    );
   }
 
 }
